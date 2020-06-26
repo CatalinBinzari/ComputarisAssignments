@@ -3,6 +3,7 @@
 #include  <stdio.h>
 #define FINISH 100
 #define BEGIN 1
+
 void display_ping()
 {
     printf("Ping");
