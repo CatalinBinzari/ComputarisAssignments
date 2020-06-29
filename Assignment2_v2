@@ -1,0 +1,65 @@
+//clang 6.0.0
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
+
+
+char* read_row()
+{
+    char *s = malloc(1);
+    int c;
+    int i = 0;
+    while((c = getchar()) != '\n' && c != EOF)
+    {
+        s[i++] = c;
+        s = realloc(s, i+1);
+    }
+    s[i] = '\0';
+    return s;
+}
+int str_to_int(char* s)
+{
+    int i;
+    sscanf(s, "%d", &i);
+    return i;
+}
+bool check_row(char *strvar)
+{
+    for (int i=0; i<=strlen(strvar)-3; i++)
+        {
+            if(strvar[i]<48 || strvar[i]>57) 
+            {
+                return false;
+            }
+            
+        }
+    return true;
+}
+
+int main(void)
+{   
+    bool just_digits = true;
+    char *strvar;
+    
+    while(just_digits)
+    {
+        
+        strvar = read_row();
+        just_digits = check_row(strvar);
+        
+        if(just_digits)
+            printf("%d\n",str_to_int(strvar));
+        else
+            printf("Process finished.\n");
+       free(strvar);
+    }
+    
+    
+    
+    
+    //printf("%s",str);
+    
+    return 0;
+}  
