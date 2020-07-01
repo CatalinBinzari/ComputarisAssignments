@@ -52,8 +52,8 @@ int *get_operators(char *strvar)
     int index =0;
     for (int i=0; i<strlen(strvar); i++)
     {
-        if(strvar[i]==43) {operators_arr[index]=0;++index;} // +
-        else if (strvar[i]==45) {operators_arr[index]=1;++index;} // -
+        if(strvar[i]=='+') {operators_arr[index]=0;++index;} // +
+        else if (strvar[i]=='-') {operators_arr[index]=1;++index;} // -
     }
     return operators_arr;
 }
