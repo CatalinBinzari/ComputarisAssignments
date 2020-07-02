@@ -25,9 +25,9 @@ void display_arr(int letters[26][2], int *letter_index)
         printf("\n%c : %d", letters[i][0], letters[i][1]);
     }
 }
-bool verify_repating(char *strvar, int letters[26][2], int i)
+bool verify_repating(char *strvar, int letters[26][2], int i, int *letter_index)
 {
-    for(int r = 0; r < 26; ++r)
+    for(int r = 0; r < *letter_index; ++r)
         if(strvar[i] == letters[r][0]) return true;
     return false;
 }
@@ -55,8 +55,8 @@ int main(void)
     {
         
         if(strvar[i]>='a' && strvar[i]<='z' || strvar[i]>='A' && strvar[i]<='Z') 
-        {  
-            repeated = verify_repating(strvar, letters, i);
+        {   
+            repeated = verify_repating(strvar, letters, i, &letter_index);
             if(!repeated){
                 count_letters(strvar, letters, i, &letter_index, &counter);
             }
