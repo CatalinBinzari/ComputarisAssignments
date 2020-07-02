@@ -18,21 +18,21 @@ char* read_row()
     s[i] = '\0';
     return s;
 }
-void display_arr(char letters[26][32], int *letter_index)
+void display_arr(int letters[26][2], int *letter_index)
 {
     for(int i = 0; i < *letter_index; ++i)
     {
         printf("\n%c : %d", letters[i][0], letters[i][1]);
     }
 }
-bool verify_repating(char *strvar, char letters[26][32], int i)
+bool verify_repating(char *strvar, int letters[26][2], int i)
 {
     for(int r = 0; r < 26; ++r)
         if(strvar[i] == letters[r][0]) return true;
     return false;
 }
 
-void count_letters(char *strvar, char letters[26][32], int i, int *letter_index, int *counter)
+void count_letters(char *strvar, int letters[26][2], int i, int *letter_index, int *counter)
 {
     letters[*letter_index][0] = strvar[i];
                 
@@ -45,10 +45,11 @@ void count_letters(char *strvar, char letters[26][32], int i, int *letter_index,
 }
 
 int main(void)
-{   char letters[26][32] = {};
-    char *strvar = read_row();
+{   int letters[26][2] = {};
     int letter_index = 0, counter = 0;
     bool repeated;
+    
+    char *strvar = read_row();
  
     for(int i = 0; i < strlen(strvar); ++i)
     {
