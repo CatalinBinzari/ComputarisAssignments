@@ -29,16 +29,24 @@ char* read_row()
 }
 int *get_int_values(char *strvar)
 {
-    char *ptr = strvar;
     int index = 0;
-    printf("%s\n", strvar);
     static int  arr[4];
-    while (*ptr) {
-    if (isdigit(*ptr)) {
-        int val = strtol(ptr, &ptr, 10);
-        arr[index] = val; ++index;
+    while (*strvar) {
+        printf("%c\n", *strvar);
+    if (isdigit(*strvar)) {
+        if(*(strvar-1) == '-')
+        {
+            arr[index] = -strtol(strvar, &strvar, 10);
+            ++index;
+        }
+        else
+        {
+            arr[index] = strtol(strvar, &strvar, 10);
+            ++index;
+        }
+        
     } else {
-        ptr++;
+        strvar++;
     }
 }
     return arr;
@@ -47,12 +55,12 @@ int *get_int_values(char *strvar)
 int *get_operators(char *strvar)
 {
     
-    printf("%s\n", strvar);
+    //printf("%s\n", strvar);
     static int operators_arr[3];
     int index =0;
     for (int i=0; i<strlen(strvar); i++)
     {
-        if(strvar[i]=='+') {operators_arr[index]=0;++index;} // +
+        if      (strvar[i]=='+') {operators_arr[index]=0;++index;} // +
         else if (strvar[i]=='-') {operators_arr[index]=1;++index;} // -
     }
     return operators_arr;
@@ -60,6 +68,12 @@ int *get_operators(char *strvar)
 
 int mix_int_op(int *numbers,int  *operators)
 {
+    for (int i = 0; i < 4; i++ ) {
+      printf( "*(numbers + %d) : %d\n", i, *(numbers + i));
+    }
+    for (int i = 0; i < 3; i++ ) {
+      printf( "*(operators + %d) : %d\n", i, *(operators + i));
+    }
     funptr operator[] = { add, sub };
     return operator[*(operators+2)](
                 operator[*(operators+1)](
@@ -69,30 +83,28 @@ int mix_int_op(int *numbers,int  *operators)
     
     
     
-    for (int i = 0; i < 4; i++ ) {
-      printf( "*(numbers + %d) : %d\n", i, *(numbers + i));
-    }
-    for (int i = 0; i < 3; i++ ) {
-      printf( "*(operators + %d) : %d\n", i, *(operators + i));
-    }
+    
+    
 }
 
 
 int main(void)
 {   
+    long result;
     int *numbers; 
     int *operators; 
-    char *strvar = read_row();
-    char *strop = read_row();
+    char *strvar;
+    strvar = read_row();
     numbers = get_int_values(strvar);
     free(strvar);
-    operators = get_operators(strop);
-    free(strop);
+    strvar = read_row();
+    operators = get_operators(strvar);
+    free(strvar);
     
     
     
-    int result = mix_int_op(numbers, operators);
-    printf("%d", result);
+    result = mix_int_op(numbers, operators);
+    printf("%d\n", result);
     
     return 0;
 }
